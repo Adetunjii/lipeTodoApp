@@ -1,0 +1,17 @@
+.btn-fixed {
+  bottom: 40px;
+  height: 70px;
+  width: 70px;
+  position: fixed;
+  right: 40px;
+  z-index: 999;
+  border-radius: 80px;
+  border: 1px solid #12054c;
+  color: white;
+  box-shadow: 0px 5px 16px blueviolet;
+}
+
+mdb-navbar-brand h1 {
+  font-weight: bold;
+  font-style: normal;
+}

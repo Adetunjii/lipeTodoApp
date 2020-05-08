@@ -1,35 +1,35 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+  let fixture: ComponentFixture<AppComponent>;
+  let app;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents;
+
+    fixture = TestBed.createComponent(AppComponent);
+  });
+
+  //confirm that the component is created.
+  it('should create the app component', () => {
+    //act
+    app = fixture.componentInstance;
+    //assert
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'LIPE-to-do-App'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('LIPE-to-do-App');
-  });
+  //confirm that it has a title of LIPE-to-do-App
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('LIPE-to-do-App app is running!');
+  it(`should have a title of 'LIPE-to-do-App'`, () => {
+    //act
+    app = fixture.componentInstance;
+
+    //assert
+    expect(app.title).toBe('LIPE-to-do-App');
   });
 });
