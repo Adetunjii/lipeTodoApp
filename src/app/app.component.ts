@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from './shared/crud.service';
-import { Router } from '@angular/router';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormGroupDirective,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ITodo } from './shared/ITodo.model';
 import { DatePipe } from '@angular/common';
 
@@ -50,8 +42,6 @@ export class AppComponent implements OnInit {
 
   public constructor(
     public crudService: CrudService,
-    private router: Router,
-    private fb: FormBuilder,
     private datePipe: DatePipe
   ) {}
 
