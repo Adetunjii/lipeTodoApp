@@ -4,38 +4,29 @@
     <app-navbar></app-navbar>
   </div>
 
-  <div class="mx-2">
-    <div class="container-fluid my-5">
-      <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3 my-5" *ngFor="let event of events">
-          <mdb-card class="overflow-hidden h-100 rounded">
-            <mdb-card-img src="../../assets/purple.jpg" mdbWavesEffect></mdb-card-img>
-            <mdb-card-body>
-              <h5>{{ event.name | uppercase }}</h5>
-              <p>Created: {{ event.date }}</p>
-              <p>Completed: {{ event.status }}</p>
-              <p>Completion Date: {{ event.completionDate }}</p>
-              <p>Description: {{ event.description }}</p>
-              <div class="row">
-                <div class="mr-auto">
-                  <button mdbBtn size="sm" class="z-depth-1" color="success" (click)="updateTodoItem(event.id)"
-                    [disabled]="event.status" mdbWavesEffect>
-                    Mark as done
-                    <mdb-icon fas icon="check" class="px-1"></mdb-icon>
-                  </button>
-                </div>
-                <div class="ml-auto">
-                  <button mdbBtn size="sm" class="px-0 z-depth-0" (click)="removeTodoItem(event.id)">
-                    <mdb-icon class="px-1 red-text" fas icon="trash"></mdb-icon>
-                  </button>
-                </div>
-              </div>
-            </mdb-card-body>
-          </mdb-card>
-        </div>
-      </div>
+  <!--sort-by buttons-->
+  <div class="row button-group pl-3 mt-4 mx-3">
+
+    <div class="mr-auto pt-3">You currently have {{events.length}} tasks</div>
+    <div class="ml-auto">
+      <span>
+        <strong>Sort By:</strong>
+      </span>
+      <button size="sm" color="primary" class="text-white" mdbBtn (click)="sortByName()">name</button>
+      <button size="sm" color="primary" class="text-white" mdbBtn (click)="sortByCompletionDate()">completion
+        date</button>
+      <button size="sm" color="primary" class="text-white" mdbBtn (click)="sortByDateCreated()">date created</button>
     </div>
   </div>
+
+
+  <div class="container text-center my-5" *ngIf="isEmpty()">
+    <h1>
+      <strong>ADD AN EVENT</strong>
+    </h1>
+  </div>
+  <!--task card-->
+  <app-card [events]="events"></app-card>
 
   <!--floating action button-->
   <button type="button" mdbBtn size="sm" class="btn-fixed indigo darken-4" data-toggle="modal"

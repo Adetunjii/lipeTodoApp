@@ -20,39 +20,34 @@ import { DatePipe } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'LIPE-to-do-App';
-  events: ITodo[];
 
-  item: ITodo = {
-    name: '',
-    date: '',
-    status: '',
-    completionDate: '',
-    description: '',
-  };
+  events: ITodo[] = [];
+  newTodoItem: ITodo;
 
+  isEmpty() {
+    if (this.events.length == 0) return true;
+  }
+
+  //modal form data
   eventName = new FormControl('', Validators.required);
   eventDate = new FormControl('', Validators.required);
   eventDescription = new FormControl('', Validators.required);
   eventForm: FormGroup;
 
-  editName: FormControl;
-  editDate: FormControl;
-  editDescription: FormControl;
-  editForm: FormGroup;
+  //filters
+  sortByName() {
+    return this.events.sort((a, b) => (a.name > b.name ? 1 : -1));
+  }
 
-  // get eventName() {
-  //   return this.eventForm.get('eventName');
-  // }
+  sortByCompletionDate() {
+    return this.events.sort((a, b) =>
+      a.completionDate > b.completionDate ? 1 : -1
+    );
+  }
 
-  // get eventDate() {
-  //   return this.eventForm.get('eventDate');
-  // }
-
-  // get eventDescription() {
-  //   return this.eventForm.get('eventDescription');
-  // }
-
-  newTodoItem: ITodo;
+  sortByDateCreated() {
+    return this.events.sort((a, b) => (a.date < b.date ? 1 : -1));
+  }
 
   public constructor(
     public crudService: CrudService,
@@ -61,6 +56,7 @@ export class AppComponent implements OnInit {
     private datePipe: DatePipe
   ) {}
 
+  //subscribe to the observable returned from the service
   getTodoList() {
     this.crudService.getTodoList().subscribe(
       (todoListItem) =>
@@ -73,6 +69,7 @@ export class AppComponent implements OnInit {
     );
   }
 
+  //create a new item
   addTodoItem() {
     const status = true;
     const item = {
@@ -86,22 +83,6 @@ export class AppComponent implements OnInit {
     };
     this.crudService.createTodoItem(item);
     this.eventForm.reset();
-  }
-
-  // editTodoItem(id) {
-
-  //   this.editForm = new FormGroup({
-  //     editName: new FormControl(item.name, Validators.required),
-  //     editDate: new FormControl(item.date),
-  //   });
-  // }
-
-  removeTodoItem(id: string) {
-    this.crudService.deleteTodoItem(id);
-  }
-
-  updateTodoItem(id: string) {
-    this.crudService.updateTodoList(id);
   }
 
   ngOnInit(): void {

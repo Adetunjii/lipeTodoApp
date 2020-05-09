@@ -1,43 +1,24 @@
-<div class="container-fluid my-5">
+<div class="container-fluid my-5 mx-2">
   <div class="row">
     <div class="col-sm-6 col-md-4 col-lg-3 my-5" *ngFor="let event of events">
-      <mdb-card class="overflow-hidden h-100 rounded">
-        <mdb-card-img
-          src="../../assets/purple.jpg"
-          mdbWavesEffect
-        ></mdb-card-img>
+      <mdb-card class="h-100 rounded">
+        <mdb-card-img src="../../assets/purple.jpg" mdbWavesEffect></mdb-card-img>
         <mdb-card-body>
           <h5>{{ event.name | uppercase }}</h5>
           <p>Created: {{ event.date }}</p>
-          <p>Status: {{ event.status }}</p>
+          <p>Completed: {{ event.status }}</p>
           <p>Completion Date: {{ event.completionDate }}</p>
           <p>Description: {{ event.description }}</p>
           <div class="row">
             <div class="mr-auto">
-              <button
-                mdbBtn
-                size="sm"
-                class="z-depth-1"
-                color="success"
-                mdbWavesEffect
-              >
-                Mark as done ✅
+              <button mdbBtn size="sm" class="z-depth-1" color="success" (click)="updateTodoItem(event.id)"
+                [disabled]="event.status" mdbWavesEffect>
+                Mark as done
+                <mdb-icon fas icon="check" class="px-1"></mdb-icon>
               </button>
             </div>
             <div class="ml-auto">
-              <button mdbBtn size="sm" class="px-0 z-depth-0" mdbWavesEffect>
-                <mdb-icon
-                  class="px-1 hoveerable"
-                  fas
-                  icon="pencil-alt"
-                ></mdb-icon>
-              </button>
-              <button
-                mdbBtn
-                size="sm"
-                class="px-0 z-depth-0"
-                (click)="delete(event.id)"
-              >
+              <button mdbBtn size="sm" class="px-0 z-depth-0" (click)="removeTodoItem(event.id)">
                 <mdb-icon class="px-1 red-text" fas icon="trash"></mdb-icon>
               </button>
             </div>

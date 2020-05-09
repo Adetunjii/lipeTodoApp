@@ -9,10 +9,20 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
+  //recieve events from app component
   @Input() events;
-  editForm: FormGroup;
 
   constructor(public crudService: CrudService) {}
 
   ngOnInit(): void {}
+
+  //remove item from todo List
+  removeTodoItem(id: string) {
+    this.crudService.deleteTodoItem(id);
+  }
+
+  //update todo list item
+  updateTodoItem(id: string) {
+    this.crudService.updateTodoList(id);
+  }
 }

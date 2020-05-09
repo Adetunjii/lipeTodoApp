@@ -12,19 +12,9 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root',
 })
 export class CrudService implements OnInit {
-  todoCollection;
-
   constructor(public afs: AngularFirestore) {}
 
-  getTodoList() {
-    return this.afs.collection('todo').snapshotChanges();
-  }
-
-  updateTodoList(id: string) {
-    this.afs.collection('todo').doc(id).update({ status: true });
-  }
-
-  //create a new Todo List item
+  //CREATE
   createTodoItem(todoItem: ITodo) {
     this.afs.collection('todo').add({
       name: todoItem.name,
@@ -35,6 +25,17 @@ export class CrudService implements OnInit {
     });
   }
 
+  //READ
+  getTodoList() {
+    return this.afs.collection('todo').snapshotChanges();
+  }
+
+  //UPDATE
+  updateTodoList(id: string) {
+    this.afs.collection('todo').doc(id).update({ status: true });
+  }
+
+  //DELETE
   deleteTodoItem(id) {
     return this.afs.collection('todo').doc(id).delete();
   }

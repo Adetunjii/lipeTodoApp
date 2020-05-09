@@ -3,6 +3,6 @@ export interface ITodo {
   name: string;
   date: string;
   status: boolean;
-  description: string;
+  description?: string;
   completionDate: string;
 }
