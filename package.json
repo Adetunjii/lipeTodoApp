@@ -7,10 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "~9.1.3",
+    "@angular/compiler-cli": "~9.1.3",
     "@angular/animations": "^9.1.5",
     "@angular/cdk": "^9.2.1",
     "@angular/common": "~9.1.3",
@@ -27,6 +30,7 @@
     "animate.css": "^3.7.2",
     "chart.js": "^2.5.0",
     "firebase": "^7.14.2",
+    "typescript": "~3.8.3",
     "hammerjs": "^2.0.8",
     "ng-pick-datetime": "^7.0.0",
     "ngx-toastr": "^12.0.1",
