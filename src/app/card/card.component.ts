@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter } from 'protractor';
+import { CrudService } from '../shared/crud.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
@@ -7,8 +10,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CardComponent implements OnInit {
   @Input() events;
+  editForm: FormGroup;
 
-  constructor() {}
+  constructor(public crudService: CrudService) {}
 
   ngOnInit(): void {}
 }

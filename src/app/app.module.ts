@@ -11,7 +11,9 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { CardComponent } from './card/card.component';
 import { CreateComponent } from './create/create.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, CardComponent, CreateComponent, NavbarComponent],
@@ -19,12 +21,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
     MDBBootstrapModule.forRoot(),
   ],
-  providers: [CrudService],
+  providers: [CrudService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

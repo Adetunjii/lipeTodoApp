@@ -5,7 +5,36 @@
   </div>
 
   <div class="mx-2">
-    <app-card [events]="events"></app-card>
+    <div class="container-fluid my-5">
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 my-5" *ngFor="let event of events">
+          <mdb-card class="overflow-hidden h-100 rounded">
+            <mdb-card-img src="../../assets/purple.jpg" mdbWavesEffect></mdb-card-img>
+            <mdb-card-body>
+              <h5>{{ event.name | uppercase }}</h5>
+              <p>Created: {{ event.date }}</p>
+              <p>Completed: {{ event.status }}</p>
+              <p>Completion Date: {{ event.completionDate }}</p>
+              <p>Description: {{ event.description }}</p>
+              <div class="row">
+                <div class="mr-auto">
+                  <button mdbBtn size="sm" class="z-depth-1" color="success" (click)="updateTodoItem(event.id)"
+                    [disabled]="event.status" mdbWavesEffect>
+                    Mark as done
+                    <mdb-icon fas icon="check" class="px-1"></mdb-icon>
+                  </button>
+                </div>
+                <div class="ml-auto">
+                  <button mdbBtn size="sm" class="px-0 z-depth-0" (click)="removeTodoItem(event.id)">
+                    <mdb-icon class="px-1 red-text" fas icon="trash"></mdb-icon>
+                  </button>
+                </div>
+              </div>
+            </mdb-card-body>
+          </mdb-card>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!--floating action button-->
@@ -16,48 +45,62 @@
     </span>
   </button>
 
-
   <!--todo item modal form-->
-  <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold">Add todo item</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body mx-3">
-          <!--event name-->
-          <div class="md-form mb-5">
-            <mdb-icon fas icon="tasks" class="prefix grey-text"></mdb-icon>
-            <input type="text" id="form3" class="form-control" [formControl]="eventName" mdbInput mdbValidate>
-            <label for="form3">Event Name</label>
-            <mdb-error *ngIf="eventName.invalid && (eventName.dirty || eventName.touched)">
-              Input invalid
-            </mdb-error>
-            <mdb-success *ngIf="eventName.valid && (eventName.dirty || eventName.touched)">
-              Input valid
-            </mdb-success>
-          </div>
 
-          <!--event description-->
-          <div class="md-form mb-4">
-            <mdb-icon fas icon="pen" class="prefix grey-text">
-            </mdb-icon>
-            <textarea id="desc" type="text" class="md-textarea form-control" rows="2" mdbInput mdbValidate></textarea>
-            <label for="desc">Event Description</label>
+  <form [formGroup]="eventForm" (ngSubmit)="addTodoItem()">
+    <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Add todo item</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body mx-3">
+            <!--event name-->
+            <div class="md-form mb-5">
+              <mdb-icon fas icon="tasks" class="prefix grey-text"></mdb-icon>
+              <input type="text" id="form3" class="form-control" name="eventName" (ngModel)="eventName"
+                [formControl]="eventName" mdbInput mdbValidate />
+              <label for="form3">Event Name</label>
+              <mdb-error *ngIf="
+                  eventName.invalid && (eventName.dirty || eventName.touched)
+                ">
+                Input invalid
+              </mdb-error>
+              <mdb-success *ngIf="
+                  eventName.valid && (eventName.dirty || eventName.touched)
+                ">
+                Input valid
+              </mdb-success>
+            </div>
 
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button mdbBtn color="indigo" class="waves-light" mdbWavesEffect>Send
-            <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
-          </button>
+            <!--Date time picker-->
+            <div class="md-form mb-5">
+              <mdb-icon fas icon="calendar" class="prefix grey-text"></mdb-icon>
+              <input type="date" class="mt-2" id="eventDate" name="eventDate" (ngModel)="eventDate" min="2020-05-01"
+                [formControl]="eventDate" />
+            </div>
+
+            <!--event description-->
+            <div class="md-form mb-4">
+              <mdb-icon fas icon="pen" class="prefix grey-text"> </mdb-icon>
+              <textarea id="desc" type="text" class="md-textarea form-control" rows="2" name="eventDescription"
+                (ngModel)="eventDescription" [formControl]="eventDescription" mdbInput mdbValidate></textarea>
+              <label for="desc">Event Description</label>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button mdbBtn type="submit" (click)="frame.hide()" color="indigo" class="waves-light rounded"
+              mdbWavesEffect>
+              Add item
+              <mdb-icon fas icon="plus" class="white-text ml-1"></mdb-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
+  </form>
 </div>
