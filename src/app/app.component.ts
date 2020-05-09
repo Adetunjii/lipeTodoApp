@@ -10,7 +10,6 @@ import {
   FormGroupDirective,
 } from '@angular/forms';
 import { ITodo } from './shared/ITodo.model';
-import { Subscriber } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -21,7 +20,7 @@ import { DatePipe } from '@angular/common';
 export class AppComponent implements OnInit {
   title = 'LIPE-to-do-App';
 
-  events: ITodo[] = [];
+  events = [];
   newTodoItem: ITodo;
 
   isEmpty() {
@@ -61,10 +60,9 @@ export class AppComponent implements OnInit {
     this.crudService.getTodoList().subscribe(
       (todoListItem) =>
         (this.events = todoListItem.map((e) => {
-          return {
-            id: e.payload.doc.id,
-            ...e.payload.doc.data(),
-          } as ITodo;
+          const data = e.payload.doc.data() as ITodo;
+          const id = e.payload.doc.id;
+          return { id, ...data };
         }))
     );
   }
